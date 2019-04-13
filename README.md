@@ -37,12 +37,12 @@ $ pip uninstall ciscovpn
 #### Connecting to VPN
 ```bash
 $ ciscovpn --connect
-Connected to VPN - <username>@<vpn_server>
+Connected to VPN - "username"@"vpn_server"
 
 ```
 
 #### Disconnecting to VPN
 ```bash
 $ ciscovpn --disconnect
-Disconnected from VPN - <username>@<vpn_server>
+Disconnected from VPN - "username"@"vpn_server"
 ```
