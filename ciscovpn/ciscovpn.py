@@ -2,6 +2,8 @@
 Connect/disconnect to VPN via CISCO AnyConnect Secure Mobility Client
 with multiple groups to connect.
 
+Uses keyring to retrieve password from the OSX keychain
+
 Tested on Version: 4.6.03049
 Platform: macOS Mojave 10.14.4
 """
@@ -14,7 +16,7 @@ import time
 
 USERNAME = ''
 VPN_HOST = ''
-VPN_BIN = ''
+VPN_BIN = '/opt/cisco/anyconnect/bin/vpn'
 CONNECT_GROUP = ''
 
 CISCO_CLIENT_APP = 'Cisco AnyConnect Secure Mobility Client'
@@ -27,6 +29,15 @@ ACCOUNT_NAME = ''
 @click.option('--connect/--disconnect', is_flag=True, required=True,
               default=True, help='Connect/Disconnect VPN')
 def main(connect):
+    if (USERNAME == '' or
+            VPN_HOST == '' or
+            VPN_BIN == '' or
+            CISCO_CLIENT_APP == '' or
+            SYS_NAME == '' or
+            ACCOUNT_NAME == ''):
+        print("VPN parameters undefined. Aborting")
+        sys.exit(1)
+
     if connect:
         connect_vpn()
     else:
@@ -47,8 +58,9 @@ def connect_vpn():
     # Delay to wait until disconnection/app is closed
     time.sleep(2)
     child = pexpect.spawn(VPN_BIN + ' -s connect ' + VPN_HOST, encoding='utf-8')
-    child.expect(r'Group: \[.*\]')
-    child.sendline(CONNECT_GROUP)
+    if CONNECT_GROUP != '':
+        child.expect(r'Group: \[.*\]')
+        child.sendline(CONNECT_GROUP)
     child.expect(r'Username: \[.*\]')
     child.sendline(USERNAME)
     child.expect('Password:')
