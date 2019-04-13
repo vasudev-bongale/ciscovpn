@@ -12,15 +12,15 @@ import click
 import pexpect
 import time
 
-USERNAME = 'vabongal'
-VPN_HOST = 'vpn.ncsu.edu'
-VPN_BIN = '/opt/cisco/anyconnect/bin/vpn'
-CONNECT_GROUP = '4'
+USERNAME = ''
+VPN_HOST = ''
+VPN_BIN = ''
+CONNECT_GROUP = ''
 
 CISCO_CLIENT_APP = 'Cisco AnyConnect Secure Mobility Client'
 
-SYS_NAME = 'unity'
-ACCOUNT_NAME = 'vabongal'
+SYS_NAME = ''
+ACCOUNT_NAME = ''
 
 
 @click.command()
